@@ -10,7 +10,7 @@ public:
 
     Vector() : x(0.0), y(0.0) {}
     Vector(float X, float Y) : x(X), y(Y) {}
-    Vector(Vector& other) : x(other.x), y(other.y) {}
+    Vector(const Vector& other) : x(other.x), y(other.y) {}
 
     void add(Vector& other) { x+=other.x; y+=other.y; }
     void sub(Vector& other) { x-=other.x; y-=other.y; }
@@ -20,19 +20,19 @@ public:
 
 
 
-Vector sum(Vector& a, Vector& b) {
+Vector operator+(Vector& a, Vector& b) {
     return Vector((a.x + b.x), (a.y + b.y));
 }
 
-Vector dif(Vector& a, Vector& b) {
+Vector operator-(Vector& a, Vector& b) {
     return Vector((a.x - b.x), (a.y - b.y));
 }
 
-Vector mul(Vector& a, float s) {
+Vector operator*(Vector& a, float s) {
     return Vector((a.x * s) , (a.y * s));
 }
 
-Vector mul(float s, Vector& a) {
+Vector operator*(float s, Vector& a) {
     return Vector((a.x * s) , (a.y * s));
 }
 
@@ -54,15 +54,15 @@ public:
 
     Segment() : a(0.0, 0.0), b(0.0, 0.0) {}
     Segment(Vector& A, Vector& B) : a(A), b(B) {}
-    Segment(Segment& other) : a(other.a), b(other.b) {}
+    Segment(const Segment& other) : a(other.a), b(other.b) {}
 
     float lenght() {
-        return dif(a, b).length();
+        return (a - b).length();
     }
 
     void move(Vector& shift) {
-        a.add(shift);
-        b.add(shift);
+        a + shift;
+        b + shift;
     }
 };
 
@@ -76,14 +76,14 @@ public:
 
     Circle() : pos(0.0, 0.0), r(0.0) {}
     Circle(Vector& Pos, float Radius) : pos(Pos), r(Radius) {}
-    Circle(Circle& other) : pos(other.pos), r(other.r) {}
+    Circle(const Circle& other) : pos(other.pos), r(other.r) {}
 
     float square() {
         return 3.14 * r *r;
     }
 
     void move(Vector& shift) {
-        pos.add(shift);
+        pos + shift;
     }
 };
 
@@ -99,16 +99,16 @@ public:
     Triangle(Vector& a,Vector& b, Vector& c) : A(a), B(b), C(c) {}
 
     float square() {
-        Vector AB = dif(B, A);
-        Vector AC = dif(C, A);
+        Vector AB = B - A;
+        Vector AC = C - A;
         
         return abs(crossProduct(AB, AC)) * 0.5;
     }
 
     void move(Vector& shift) {
-        A.add(shift);
-        B.add(shift);
-        C.add(shift);
+        A + shift;
+        B + shift;
+        C + shift;
     }
 };
 
