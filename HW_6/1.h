@@ -13,7 +13,8 @@ void clean(std::list<T>& in, const Func& func) {
          */
          // окей
          it = in.erase(it);
+         --it;
       }
-      else ++it;
+      //else ++it;
    }
 };

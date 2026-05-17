@@ -7,7 +7,7 @@
 bool checker(int num) { return num < 0; }
 
 int main() {
-  std::list<int> mylist = {-7, 1, -1, 2, 4, 6, -19, -8, -77, 7, 9, 0, -5};
+  std::list<int> mylist = {-7, 1, -1, 2, 4, 6, -19, -8, -77, 7, 9, 0, -5, 12};
   clean(mylist, checker);
   for (auto value: mylist) {
     std::cout << value << ' ';
